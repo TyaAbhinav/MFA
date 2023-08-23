@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+</head>
+<body>
+    <h1>Create Account</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+    <form method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="familyname">Family Name:</label>
+        <input type="text" id="familyname" name="familyname" required><br>
+
+        <!-- Dynamic security questions generation based on available questions in the database -->
+        <label>Security Questions:</label><br>
+        {% for i in range(5) %} <!-- Jinja2 loop 5 times - 5 questions -->
+        <input type="text" id="security_question_{{ loop.index0 }}" name="security_question_{{ loop.index0 }}" placeholder="Enter your security question" required><br>
+        <input type="password" id="security_answer_{{ loop.index0 }}" name="security_answer_{{ loop.index0 }}" placeholder="Enter your answer" required><br>
+        {% endfor %}
+
+        
+        <button type="submit">Create Account</button>
+    </form>
+    <p>Already have an account? <a href="/login">Login</a></p>
+</body>
+</html>

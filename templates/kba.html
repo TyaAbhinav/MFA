@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Authenticate</title>
+</head>
+<body>
+    <h1>Answer Security Questions</h1>
+    <form method="post" action="/kba">
+        <input type="hidden" name="user_id" value="{{ user.user_id }}">
+
+        {% for question in random_questions %}
+        <label for="security_answer_{{ loop.index0 }}">{{ question.text }}</label>
+        <input type="hidden" name="question_id_{{ loop.index0 }}" value="{{ question.id }}">
+        <input type="password" id="security_answer_{{ loop.index0 }}" name="security_answer_{{ loop.index0 }}" placeholder="Enter your answer" required><br>
+        {% endfor %}
+
+        <button type="submit">Verify</button>
+    </form>
+</body>
+</html>
