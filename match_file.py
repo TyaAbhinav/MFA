@@ -1,5 +1,5 @@
 import pickle
-from VoiceAuthentication.models import matching
+from models import matching
 
 def matching_check_file(InputMFCC, regis_directory_with_file):
     with open(f"{regis_directory_with_file}Voicerecognition.pkl","rb") as pkl4:

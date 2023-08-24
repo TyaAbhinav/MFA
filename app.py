@@ -4,8 +4,8 @@ from flask_bcrypt import Bcrypt
 import os
 from flask import jsonify
 import random
-from VoiceAuthentication.microphone import file_call_microphone
-from VoiceAuthentication.main import voice_authentication
+from microphone import file_call_microphone
+from main import voice_authentication
 
 # Initializing Flask application, database, and password hashing
 app = Flask(__name__)
@@ -118,10 +118,12 @@ def kba():
         else:
             print(f"Missing data for question {question_id}. Provided answer: {provided_answer}, Saved hash: {saved_hash}")
 
+    username = user.username
+
     # If all answers are correct, grant access
     if correct_answers == 3:
-        status = voice_authentication(user.username)
-        if status == "successful":
+        status = voice_authentication(username)
+        if status == 1:
             return "Access granted."
     return "Access denied."
 
@@ -179,7 +181,7 @@ def get_all_questions():
 # Route to handle user voice registration
 @app.route('/voice_registration', methods=['GET', 'POST'])
 def voice_registration():
-    username = session.get('username')
+    username = request.form.get('username')
     if username:
         file_call_microphone(username)
         return jsonify(message="Voice recorded.")

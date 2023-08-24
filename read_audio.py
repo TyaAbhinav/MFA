@@ -6,7 +6,7 @@ def read_file(str):
     sample_rate, signal1 = scipy.io.wavfile.read(str)  # File assumed to be in the same directory
     #print("RERSRSFFDGDGDHHFHH",sample_rate)
 #    signal1 = signal1[0:int(2 * sample_rate)]  # Keep the first 2 seconds
-    signal1 = signal1[0:int(2 * sample_rate)]  # Keep the first 2 seconds
+    signal1 = signal1[0:int(5 * sample_rate)]  # Keep the first 5 seconds
     feat1=mfcc(signal1,sample_rate,0.025,0.01,13, 26,1024,0,None,0.97,22,True)
     return feat1
 #feat1=read_file('1.wav')
