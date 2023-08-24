@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import os
 from flask import jsonify
 import random
+from VoiceAuthentication.microphone import file_call_microphone
+from VoiceAuthentication.main import voice_authentication
 
 # Initializing Flask application, database, and password hashing
 app = Flask(__name__)
@@ -11,6 +13,7 @@ db_path = os.path.join(os.path.dirname(__file__), 'mfadb', 'users.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+app.secret_key = 'supersecretkey'
 
 # Database Models
 
@@ -117,7 +120,9 @@ def kba():
 
     # If all answers are correct, grant access
     if correct_answers == 3:
-        return "Access granted."
+        status = voice_authentication(user.username)
+        if status == "successful":
+            return "Access granted."
     return "Access denied."
 
 
@@ -160,15 +165,26 @@ def register():
         
         # Commit all database changes
         db.session.commit()
-        # Redirect to login after successful registration
-        return redirect(url_for('index'))
 
+        # Save the username in session for later use
+        session['username'] = username
+    
     return render_template('register.html')
 
 @app.route('/get_all_questions', methods=['GET'])
 def get_all_questions():
     questions = [q.question_text for q in Question.query.all()]
     return jsonify(questions=questions)
+
+# Route to handle user voice registration
+@app.route('/voice_registration', methods=['GET', 'POST'])
+def voice_registration():
+    username = session.get('username')
+    if username:
+        file_call_microphone(username)
+        return jsonify(message="Voice recorded.")
+    else:
+        return jsonify(message="Username is missing")
 
 
 # Run the Flask application if this script is executed

@@ -2,6 +2,32 @@
 <html>
 <head>
     <title>Create Account</title>
+    <script>
+        async function recordVoice() {
+            event.preventDefault(); // Prevent default form submission
+            try {
+                const username = document.getElementById("username").value;
+
+                // Use FormData to store the username
+                let formData = new FormData();
+                formData.append('username', username);
+                
+                let response = await fetch('/voice_registration', {
+                    method: 'POST',
+                    body: formData  // Include username in the body
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                let data = await response.json();
+                console.log(data.message);
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Create Account</h1>
@@ -26,8 +52,10 @@
         <input type="password" id="security_answer_{{ loop.index0 }}" name="security_answer_{{ loop.index0 }}" placeholder="Enter your answer" required><br>
         {% endfor %}
 
-        
-        <button type="submit">Create Account</button>
+        <br>
+        <button onclick="recordVoice();">Start Voice Registration</button><br>
+        <br>
+        <button type="submit" onclick="window.location.href='login'">Create Account</button>
     </form>
     <p>Already have an account? <a href="/login">Login</a></p>
 </body>

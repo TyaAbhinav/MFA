@@ -1,0 +1,14 @@
+future
+numpy
+math
+logging
+scipy.fftpack
+scipy.io.wavfile
+functools
+collections
+matplotlib.pyplot
+pickle
+wave
+sys
+pyaudio
+shortuuid
