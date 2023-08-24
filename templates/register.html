@@ -4,6 +4,7 @@
     <title>Create Account</title>
     <script>
         async function recordVoice() {
+            
             event.preventDefault(); // Prevent default form submission
             
             const username = document.getElementById("username").value;
@@ -53,8 +54,19 @@
         {% endfor %}
 
         <br>
-        <button type="button" onclick="recordVoice();">Start Voice Registration</button><br>
-        <br>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <button type="submit" onclick="recordVoice();">Start Voice Registration</button>
+        <br><br>
         <button type="submit" onclick="window.location.href='login'">Create Account</button>
     </form>
     <p>Already have an account? <a href="/login">Login</a></p>

@@ -34,7 +34,7 @@ def voice_authentication(user: str) -> Optional[int]:
 
 
 if __name__ == '__main__':
-    user = "shiv"
+    user = "shiva"
     status = voice_authentication(user)
     print(status)
 

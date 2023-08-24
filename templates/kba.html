@@ -14,6 +14,16 @@
         <input type="password" id="security_answer_{{ loop.index0 }}" name="security_answer_{{ loop.index0 }}" placeholder="Enter your answer" required><br>
         {% endfor %}
 
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
         <button type="submit">Verify</button>
     </form>
 </body>
