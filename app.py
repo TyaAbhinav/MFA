@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import os
@@ -123,7 +122,6 @@ def kba():
 
     # If all answers are correct, grant access
     if correct_answers == 3:
-        flash("Recording Voice")
         status = voice_authentication(username)
         if status == 1:
             return "Access granted."
@@ -186,7 +184,6 @@ def voice_registration():
     username = request.form.get('username')
     if username:
         file_call_microphone(username)
-        flash("Recording Voice")
         return jsonify(message="Voice recorded.")
     else:
         return jsonify(message="Username is missing")

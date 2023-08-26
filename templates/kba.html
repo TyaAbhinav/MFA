@@ -2,6 +2,12 @@
 <html>
 <head>
     <title>Authenticate</title>
+    <script>
+        function printmessage() {
+            document.getElementById("result").innerText = `Recording voice now...`;
+        }
+    </script>
+    
 </head>
 <body>
     <h1>Answer Security Questions</h1>
@@ -14,17 +20,8 @@
         <input type="password" id="security_answer_{{ loop.index0 }}" name="security_answer_{{ loop.index0 }}" placeholder="Enter your answer" required><br>
         {% endfor %}
 
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-
-        <button type="submit">Verify</button>
+        <div id="result"></div>
+        <button type="submit" onclick="setTimeout(printmessage, 1000)">Verify</button>
     </form>
 </body>
 </html>

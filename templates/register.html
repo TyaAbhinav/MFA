@@ -23,6 +23,7 @@
                 }
 
                 const data = await response.json();
+                document.getElementById("result").innerText = `${data.message}`;
                 console.log(data.message);
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
@@ -54,19 +55,9 @@
         {% endfor %}
 
         <br>
-
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-
         <button type="submit" onclick="recordVoice();">Start Voice Registration</button>
-        <br><br>
+        <div id="result"></div>
+        <br>
         <button type="submit" onclick="window.location.href='login'">Create Account</button>
     </form>
     <p>Already have an account? <a href="/login">Login</a></p>
