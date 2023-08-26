@@ -13,6 +13,7 @@
             let formData = new FormData();
             formData.append('username', username);
             try {   
+                document.getElementById("record").innerText = `Recording voice now...`;
                 const response = await fetch('/voice_registration', {
                     method: 'POST',
                     body: formData  // Include username in the body
@@ -21,7 +22,7 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-
+                document.getElementById("record").innerText = ` `;
                 const data = await response.json();
                 document.getElementById("result").innerText = `${data.message}`;
                 console.log(data.message);
@@ -56,6 +57,7 @@
 
         <br>
         <button type="submit" onclick="recordVoice();">Start Voice Registration</button>
+        <div id="record"></div>
         <div id="result"></div>
         <br>
         <button type="submit" onclick="window.location.href='login'">Create Account</button>
