@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Create Account</title>
+    <!-- added --> 
     <script>
         async function recordVoice() {
             
@@ -31,6 +32,7 @@
             }
         }
     </script>
+    <!-- added end --> 
 </head>
 <body>
     <h1>Create Account</h1>
@@ -55,12 +57,14 @@
         <input type="password" id="security_answer_{{ loop.index0 }}" name="security_answer_{{ loop.index0 }}" placeholder="Enter your answer" required><br>
         {% endfor %}
 
+        <!-- modified --> 
         <br>
         <button type="submit" onclick="recordVoice();">Start Voice Registration</button>
         <div id="record"></div>
         <div id="result"></div>
         <br>
         <button type="submit" onclick="window.location.href='login'">Create Account</button>
+        <!-- added end--> 
     </form>
     <p>Already have an account? <a href="/login">Login</a></p>
 </body>

@@ -2,12 +2,13 @@
 <html>
 <head>
     <title>Authenticate</title>
+    <!-- added --> 
     <script>
         function printmessage() {
             document.getElementById("result").innerText = `Recording voice now...`;
         }
     </script>
-    
+    <!-- added end --> 
 </head>
 <body>
     <h1>Answer Security Questions</h1>
@@ -20,8 +21,10 @@
         <input type="password" id="security_answer_{{ loop.index0 }}" name="security_answer_{{ loop.index0 }}" placeholder="Enter your answer" required><br>
         {% endfor %}
 
+        <!-- modified --> 
         <div id="result"></div>
         <button type="submit" onclick="setTimeout(printmessage, 1000)">Verify</button>
+        <!-- added end --> 
     </form>
 </body>
 </html>
