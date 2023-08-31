@@ -92,7 +92,7 @@ def kba():
     # Ensure user exists
     if not user:
         return "User not found."
-        
+
     # Fetch user's answers using the relationship
     user_answers = user.answers
     
