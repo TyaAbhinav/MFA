@@ -33,11 +33,3 @@ def voice_authentication(user: str) -> Optional[int]:
     return None  # Returning None to indicate no more attempts
 
 
-if __name__ == '__main__':
-    user = "shiva"
-    status = voice_authentication(user)
-    print(status)
-
-    if status is not None:
-        # Do something based on the status
-        pass
